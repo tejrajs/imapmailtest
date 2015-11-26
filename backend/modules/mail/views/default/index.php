@@ -4,7 +4,7 @@ use yii\widgets\LinkPager;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-use common\components\Mail;
+use app\modules\mail\components\Mail;
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';

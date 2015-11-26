@@ -3,12 +3,12 @@
 namespace app\modules\mail\controllers;
 
 use Yii;
-use common\models\MailDetail;
+use app\modules\mail\models\MailDetail;
 use app\modules\mail\models\search\MailDetailSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use common\components\Crypt;
+use app\modules\mail\components\Crypt;
 
 /**
  * MailDetailController implements the CRUD actions for MailDetail model.

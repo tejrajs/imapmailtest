@@ -5,7 +5,7 @@ namespace app\modules\mail\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\MailDetail;
+use app\modules\mail\models\MailDetail;
 
 /**
  * MailDetailSearch represents the model behind the search form about `common\models\MailDetail`.

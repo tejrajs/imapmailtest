@@ -4,7 +4,7 @@ namespace app\modules\mail\controllers;
 
 use Yii;
 use yii\web\Controller;
-use common\components\Mail;
+use app\modules\mail\components\Mail;
 use yii\data\Pagination;
 
 class DefaultController extends Controller
