@@ -19,7 +19,7 @@ class MailDetailSearch extends MailDetail
     {
         return [
             [['id', 'user_id', 'active'], 'integer'],
-            [['mail', 'imapLogin', 'imapPassword'], 'safe'],
+            [['type', 'incomming', 'imapLogin', 'imapPassword'], 'safe'],
         ];
     }
 
@@ -61,9 +61,9 @@ class MailDetailSearch extends MailDetail
             'active' => $this->active,
         ]);
 
-        $query->andFilterWhere(['like', 'mail', $this->mail])
-            ->andFilterWhere(['like', 'imapLogin', $this->imapLogin])
-            ->andFilterWhere(['like', 'imapPassword', $this->imapPassword]);
+        $query->andFilterWhere(['like', 'type', $this->type])
+        ->andFilterWhere(['like', 'incomming', $this->incomming])
+            ->andFilterWhere(['like', 'imapLogin', $this->imapLogin]);
 
         return $dataProvider;
     }

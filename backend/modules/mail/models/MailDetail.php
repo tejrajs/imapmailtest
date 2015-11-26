@@ -2,7 +2,9 @@
 
 namespace app\modules\mail\models;
 
+
 use Yii;
+use app\modules\mail\components\Crypt;
 
 /**
  * This is the model class for table "{{%mail_detail}}".
@@ -15,6 +17,7 @@ use Yii;
  */
 class MailDetail extends \yii\db\ActiveRecord
 {
+    public $password;
     /**
      * @inheritdoc
      */
@@ -29,9 +32,10 @@ class MailDetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'mail', 'imapLogin', 'imapPassword'], 'required'],
+            [['user_id', 'incomming', 'imapPath', 'imapLogin'], 'required'],
             [['user_id','active'], 'integer'],
-            [['mail', 'imapLogin', 'imapPassword','folder'], 'string', 'max' => 150]
+        	['password', 'required', 'on'=>'create'],
+            [['type', 'imapPassword','password', 'incomming', 'serverEncoding', 'attachmentsDir', 'imapLogin'], 'string', 'max' => 150],
         ];
     }
 
@@ -43,10 +47,14 @@ class MailDetail extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'mail' => 'Mail',
+        	'type' => 'Type',	
+        	'incomming' => 'In-Comming Server',
+            'imapPath' => 'Imap Path',
+            'serverEncoding' => 'Server Encoding',
+            'attachmentsDir' => 'Attachments Dir',
             'imapLogin' => 'Imap Login',
             'imapPassword' => 'Imap Password',
-        	'folder' => 'Folder',	
+        	'password' => 'Password',
         	'active' => 'Active',
         ];
     }

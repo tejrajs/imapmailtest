@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\mail\components\Crypt;
+use common\models\SettingForm;
 
 /**
  * MailDetailController implements the CRUD actions for MailDetail model.
@@ -64,12 +65,28 @@ class MailDetailController extends Controller
         $model = new MailDetail();
 		
         if ($model->load(Yii::$app->request->post())) {
-        	$model->imapPassword = Crypt::encode($model->imapPassword);
-        	$model->user_id = \Yii::$app->user->id;
-        	$model->active = '0';
-        	if($model->save()){
-            	return $this->redirect(['view', 'id' => $model->id]);
+        	$path = '';
+        	if($model->type == 'imap'){
+        		$path = '{'.$model->incomming.':993/imap/ssl}';
+        	}elseif($model->type == 'pop'){
+        		$path = '{'.$model->incomming.':995/novalidate-cert/pop3/ssl}';
         	}
+        	$model->user_id = \Yii::$app->user->id;
+        	$model->imapPath = $path;
+        	if($model->imapPassword){
+        		$model->setPassword($model->imapPassword);
+        	}
+        	if($model->password){
+        		$model->imapPassword = Crypt::encode($model->password);
+        	}
+        	$model->serverEncoding = 'encoding';
+        	$model->attachmentsDir = '/';
+        	$model->active = '0';
+	        if($model->save()){
+	    		return $this->redirect(['/mail/setting/index','sucess'=>'1']);
+	    	}else{
+	    		return $this->redirect(['/mail/setting/index','sucess'=>'0']);
+	    	}
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -88,10 +105,23 @@ class MailDetailController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-        	$model->imapPassword = Crypt::encode($model->imapPassword);
-        	if($model->save()){
-            	return $this->redirect(['view', 'id' => $model->id]);
+        	$path = '';
+        	if($model->type == 'imap'){
+        		$path = '{'.$model->incomming.':993/imap/ssl}';
+        	}elseif($model->type == 'pop'){
+        		$path = '{'.$model->incomming.':995/novalidate-cert/pop3/ssl}';
         	}
+        	$model->user_id = \Yii::$app->user->id;
+        	$model->imapPath = $path;
+       	 	if($model->password){
+        		$model->imapPassword = Crypt::encode($model->password);
+        	}
+	        if($model->save()){
+	    		return $this->redirect(['/mail/setting/index','sucess'=>'1']);
+	    	}else{
+	    		return $this->redirect(['/mail/setting/index','sucess'=>'0']);
+	    	}
+        	//print_r($model->errors);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -109,7 +139,7 @@ class MailDetailController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/mail/setting/index','sucess'=>'1']);
     }
     /*public function actionDeActive($id)
     {

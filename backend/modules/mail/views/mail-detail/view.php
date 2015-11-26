@@ -29,10 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
-            'mail',
+            'type',
+            'incomming',
             'imapLogin',
-            'imapPassword',
             'active',
         ],
     ]) ?>

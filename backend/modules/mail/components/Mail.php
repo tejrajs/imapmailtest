@@ -11,13 +11,12 @@ class Mail extends Mailbox{
 		
 		$userID = \Yii::$app->user->id;
 		$detail = MailDetail::findOne(['user_id' => $userID, 'active' => '1']);
-		$imapDetail = ImapDetail::findOne(['mail' => $detail->mail]);
 		
-		$this->imapPath 		= $imapDetail->imapPath;
+		$this->imapPath 		= $detail->imapPath;
 		$this->imapLogin 		= $detail->imapLogin;
 		$this->imapPassword 	= Crypt::decode($detail->imapPassword);
-		$this->serverEncoding 	= $imapDetail->serverEncoding;
-		$this->attachmentsDir 	=  $imapDetail->attachmentsDir;
+		$this->serverEncoding 	= $detail->serverEncoding;
+		$this->attachmentsDir 	=  $detail->attachmentsDir;
 		$this->folder = $folder;
 		
 	}

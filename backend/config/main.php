@@ -14,6 +14,7 @@ return [
     'modules' => [
     	'mail' => [
     		'class' => 'app\modules\mail\Module',
+    		'mainLayout' => 'main',	
     	],
     ],
     'components' => [

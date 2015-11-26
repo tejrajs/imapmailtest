@@ -14,11 +14,13 @@ use app\modules\mail\models\ImapDetail;
 
     <?php $form = ActiveForm::begin(); ?>
     
-    <?= $form->field($model, 'mail')->dropDownList(ArrayHelper::map(ImapDetail::find()->all(), 'mail', 'ucmail')) ?>
+    <?= $form->field($model, 'type')->dropDownList(['imap'=>'IMAP', 'pop' => 'POP']) ?>
 
+    <?= $form->field($model, 'incomming')->textInput(['maxlength' => true]) ?>
+    
     <?= $form->field($model, 'imapLogin')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'imapPassword')->passwordInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->passwordInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -23,13 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            //'mail',
-            [
-            	'label'=>'Mail Host',
-            	'value' => function($model){
-            		return ucwords($model->mail);
-            	}
-            ],
+            'type',
+            'incomming',
             'imapLogin',
             [
             	'label'=>'IMAP Password ',
@@ -59,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						return Html::a('<span class="glyphicon glyphicon-edit"></span>',['/mail/mail-detail/update','id' => $model->id]);
 					},
 					'delete' => function ($url,$model,$key) {
-							return Html::a('<span class="glyphicon glyphicon-trash"></span>',['/mail/mail-detail/delete','id' => $model->id]);
+							return Html::a('<span class="glyphicon glyphicon-trash"></span>',['/mail/mail-detail/delete','id' => $model->id],['data-method' => 'post']);
 					},
 				],
 			],
